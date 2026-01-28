@@ -1,561 +1,414 @@
-<!DOCTYPE html>
-<html lang="en">
+// Portfolio Website JavaScript
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alok Kumar Sahoo MERN Stack Developer with AI/ML</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
+class PortfolioApp {
+    constructor() {
+        this.currentTestimonial = 0;
+        this.testimonials = document.querySelectorAll('.testimonial-slide');
+        this.typingText = document.getElementById('typing-text');
+        this.roles = ['Web Developer', 'Software Engineer', 'Frontend Specialist'];
+        this.roleIndex = 0;
+        this.charIndex = 0;
+        this.isDeleting = false;
 
-<body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <h2>Alok kumar Sahoo</h2>
-            </div>
-            <ul class="nav-menu" id="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#experience" class="nav-link">Experience</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#education" class="nav-link">Education</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#projects" class="nav-link">Projects</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#testimonials" class="nav-link">Testimonials</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
-                </li>
-            </ul>
-            <div class="nav-actions">
-                <button id="theme-toggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <div class="hamburger" id="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-            </div>
-        </div>
-    </nav>
+        this.init();
+    }
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    Hi, I'm <span class="highlight">Alok Kumar Sahoo</span>
-                </h1>
-                <div class="hero-subtitle">
-                    I'm a <span class="typing-text" id="typing-text"></span>
-                </div>
-                <p class="hero-description">
-                    I am a passionate MERN stack developer skilled in modern JavaScript frameworks, focused on building
-                    user-friendly and innovative web solutions, and eager to start my professional journey as a fresher.
-                </p>
-                <div class="hero-actions">
-                    <a href="#contact" class="btn btn--primary">Get In Touch</a>
-                    <a href="../ATSALOK.pdf" class="btn btn--outline" target="_blank" rel="noopener">Download CV</a>
-                </div>
-                <div class="social-links">
-                    <a href="https://github.com/Alokkumar-shgit" target="_blank" class="social-link">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/alok-kumar-sahoo-23ab3327a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-                        target="_blank" class="social-link">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://x.com/Alokkum27156796?t=E0V1blOzX78Vg3eXnToagA&s=09" target="_blank"
-                        class="social-link">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="sahooalok7285@gmail.com" class="social-link">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="profile-circle">
-                    <img src="../IMAGE/Alokkumarsh.jpg" alt="Alok Kumar Sahoo" class="profile-photo"
-                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
-                </div>
-            </div>
-        </div>
-    </section>
+    init() {
+        this.setupEventListeners();
+        this.startTypingAnimation();
+        this.setupScrollAnimations();
+        this.setupThemeToggle();
+        this.setupNavigation();
+        this.setupMobileMenu();
+        this.setupProjectFilters();
+        this.setupProjectCardClicks();
+        this.setupTestimonialsCarousel();
+        this.setupContactForm();
+        this.updateActiveNavLink();
+    }
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p></p>
-                    <p>I'm not just a coder—I enjoy exploring new technologies, contributing to open-source projects,
-                        and mentoring aspiring developers. I believe in writing clean, maintainable code and creating
-                        user-centered digital experiences.</p>
-                </div>
-                <div class="skills-container">
-                    <h3>Technical Skills</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">HTML/HTML5</span>
-                                <span class="skill-percentage">85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 70%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">CSS</span>
-                                <span class="skill-percentage">88%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 88%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">TAILWINDCSS</span>
-                                <span class="skill-percentage">65%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 65%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">JavaScript</span>
-                                <span class="skill-percentage">70%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">React.js</span>
-                                <span class="skill-percentage">60%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">Node.js</span>
-                                <span class="skill-percentage">80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">MongoDB</span>
-                                <span class="skill-percentage">70%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 70%"></div>
-                            </div>
-                        </div>
+    setupEventListeners() {
+        // Scroll event for navbar and animations
+        window.addEventListener('scroll', () => {
+            this.handleScroll();
+            this.updateActiveNavLink();
+        });
 
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">Expree.js</span>
-                                <span class="skill-percentage">70%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 70%"></div>
-                            </div>
-                        </div>
+        // Resize event
+        window.addEventListener('resize', () => {
+            this.closeMobileMenu();
+        });
+    }
 
+    // Make project cards clickable
+    setupProjectCardClicks() {
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', (e) => {
+                // Prevent double navigation if clicking a link inside the card
+                if (e.target.closest('a')) return;
+                const liveDemo = card.querySelector('.project-link[href*="http"]');
+                const github = card.querySelector('.project-link[href*="github"]');
+                if (liveDemo) {
+                    window.open(liveDemo.href, '_blank');
+                } else if (github) {
+                    window.open(github.href, '_blank');
+                }
+            });
+        });
+    }
 
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">Python</span>
-                                <span class="skill-percentage">75%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 75%"></div>
-                            </div>
-                        </div>
+    // Theme Toggle Functionality
+    setupThemeToggle() {
+        const themeToggle = document.getElementById('theme-toggle');
+        if (!themeToggle) return;
+        const icon = themeToggle.querySelector('i');
 
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-name">C/C++</span>
-                                <span class="skill-percentage">70%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 70%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        // Determine initial theme
+        let savedTheme = localStorage.getItem('theme');
+        let initialTheme = savedTheme || document.documentElement.getAttribute('data-color-scheme') ||
+            (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        document.documentElement.setAttribute('data-color-scheme', initialTheme);
 
-            </div>
-        </div>
-        </div>
-        </div>
-    </section>
+        // Icon management
+        if (icon) {
+            icon.classList.remove('fa-moon', 'fa-sun');
+            icon.classList.add(initialTheme === 'dark' ? 'fa-sun' : 'fa-moon');
+        }
 
-    <!-- Experience Section -->
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2 class="section-title">Experience</h2>
-            <div class="timeline">
-                <div class="experience-card card">
-                    <div class="card__body">
-                        <div class="experience-icon">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <h3>Frontend Developer</h3>
-                        <h4>Uptoskills</h4>
-                        <span class="experience-date">Present</span>
-                        <p class="experience-description">
-                            Working on developing responsive and interactive user interfaces using
-                            <strong>React.js</strong> and <strong>JavaScript</strong>.
-                            Collaborating with design teams to translate <strong>Figma</strong> prototypes into
-                            pixel-perfect web components.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-color-scheme') || 'light';
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-color-scheme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            if (icon) {
+                icon.classList.remove('fa-moon', 'fa-sun');
+                icon.classList.add(newTheme === 'dark' ? 'fa-sun' : 'fa-moon');
+            }
+        });
+    }
 
+    // Typing Animation
+    startTypingAnimation() {
+        if (!this.typingText) return;
 
-    <!-- Education Section -->
-    <section id="education" class="education">
-        <div class="container">
-            <h2 class="section-title">Education</h2>
-            <div class="education-grid">
-                <div class="education-card card">
-                    <div class="card__body">
-                        <div class="education-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <h3>Bachelor Of Computer Application</h3>
-                        <h4>Utkal University</h4>
-                        <span class="education-year">2025</span>
-                        <p class="education-detail">CGPA:7.93/10</p>
-                    </div>
-                </div>
-                <div class="education-card card">
-                    <div class="card__body">
-                        <div class="education-icon">
-                            <i class="fas fa-certificate"></i>
-                        </div>
-                        <h3>Master Of Computer Application</h3>
-                        <h4>Biju Patnaik University Of Technology</h4>
-                        <span class="education-year">2027</span>
-                        <p class="education-detail">Currently Pursuing</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        const typeSpeed = 100;
+        const deleteSpeed = 50;
+        const delayBetweenRoles = 2000;
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Projects</h2>
-            <div class="project-filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="Web Application">Web Apps</button>
-                <button class="filter-btn" data-filter="Web Application">Projects</button>
-                <button class="filter-btn" data-filter="Dashboard">Dashboards</button>
-                <button class="filter-btn" data-filter="Website">Websites</button>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card card" data-category="Web Application">
-                    <div class="project-image">
-                        <i class="fas fa-shopping-cart project-placeholder"></i>
-                    </div>
-                    <div class="card__body">
-                        <h3>E-Commerce Platform</h3>
-                        <p>Full-featured e-commerce platform with user authentication, payment processing, and admin
-                            dashboard.</p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Stripe</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://example-ecommerce.com" target="_blank" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="https://github.com/johndoe/ecommerce" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card card" data-category="Web Application">
-                    <div class="project-image">
-                        <i class="fas fa-tasks project-placeholder"></i>
-                    </div>
-                    <div class="card__body">
-                        <h3>Bridge Overloading Alarming System</h3>
-                        <p>Designed and implemented a real-time, IoT-based Bridge Overloading Alarm System to enhance
-                            public safety and protect critical infrastructure.</p>
-                        <div class="tech-stack">
-                            <span class="tech-tag"></span>
-                            <span class="tech-tag"></span>
-                            <span class="tech-tag"></span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://example-tasks.com" target="_blank" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="https://github.com/johndoe/task-manager" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card card" data-category="Dashboard">
-                    <div class="project-image">
-                        <i class="fas fa-cloud-sun project-placeholder"></i>
-                    </div>
-                    <div class="card__body">
-                        <h3>Weather Dashboard</h3>
-                        <p>Responsive weather dashboard with location-based forecasts and interactive charts.</p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">HTML</span>
-                            <span class="tech-tag">CSS</span>
-                            <span class="tech-tag">Javascript</span>
-                            <span class="tech-tag">Weather.api</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://example-weather.com" target="_blank" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="https://github.com/johndoe/weather-dashboard" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card card" data-category="Website">
-                    <div class="project-image">
-                        <i class="fas fa-user project-placeholder"></i>
-                    </div>
-                    <div class="card__body">
-                        <h3>Portfolio Website</h3>
-                        <p>Responsive portfolio website with modern design and smooth animations.</p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">HTML5</span>
-                            <span class="tech-tag">CSS3</span>
-                            <span class="tech-tag">JavaScript</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="" target="_blank" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="https://github.com/johndoe/portfolio" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        const type = () => {
+            const currentRole = this.roles[this.roleIndex];
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <h2 class="section-title">Services</h2>
-            <div class="services-grid">
-                <div class="service-card card">
-                    <div class="card__body">
-                        <div class="service-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3>Web Development</h3>
-                        <p>Custom web applications built with modern technologies and best practices.</p>
-                    </div>
-                </div>
-                <div class="service-card card">
-                    <div class="card__body">
-                        <div class="service-icon">
-                            <i class="fas fa-paint-brush"></i>
-                        </div>
-                        <h3>UI/UX Design</h3>
-                        <p>User-centered design solutions that enhance user experience and drive engagement.</p>
-                    </div>
-                </div>
-                <div class="service-card card">
-                    <div class="card__body">
-                        <div class="service-icon">
-                            <i class="fas fa-comments"></i>
-                        </div>
-                        <h3>Consulting</h3>
-                        <p>Technical consulting and code reviews to optimize your existing applications.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            if (this.isDeleting) {
+                this.typingText.textContent = currentRole.substring(0, this.charIndex - 1);
+                this.charIndex--;
+            } else {
+                this.typingText.textContent = currentRole.substring(0, this.charIndex + 1);
+                this.charIndex++;
+            }
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <div class="container">
-            <h2 class="section-title">What People Say</h2>
-            <div class="testimonials-carousel">
-                <div class="testimonial-container">
-                    <div class="testimonial-slide active">
-                        <div class="testimonial-content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p>"John is an exceptional developer who consistently delivers high-quality code. His
-                                attention to detail and problem-solving skills are outstanding."</p>
-                            <div class="testimonial-author">
-                                <h4>Sarah Johnson</h4>
-                                <span>Project Manager, Tech Solutions Inc.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-slide">
-                        <div class="testimonial-content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p>"Working with John was a pleasure. He translates designs into pixel-perfect, responsive
-                                websites with great performance."</p>
-                            <div class="testimonial-author">
-                                <h4>Mike Chen</h4>
-                                <span>Lead Designer, Digital Agency</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-slide">
-                        <div class="testimonial-content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p>"John helped transform our vision into reality. His technical expertise and communication
-                                skills made the entire process smooth."</p>
-                            <div class="testimonial-author">
-                                <h4>Emily Davis</h4>
-                                <span>CEO, StartUp Co.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-controls">
-                    <button class="prev-btn" id="prev-testimonial">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="carousel-dots">
-                        <span class="dot active" data-slide="0"></span>
-                        <span class="dot" data-slide="1"></span>
-                        <span class="dot" data-slide="2"></span>
-                    </div>
-                    <button class="next-btn" id="next-testimonial">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
+            let nextDelay = this.isDeleting ? deleteSpeed : typeSpeed;
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Let's Work Together</h3>
-                    <p>I'm always interested in new opportunities and exciting projects. Feel free to reach out if you'd
-                        like to collaborate!</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>sahooalok7285@gmail.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+91 7608831348</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Kendrapara,Odisha</span>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form" id="contact-form">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
-                        <span class="error-message" id="name-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Your Email"
-                            required>
-                        <span class="error-message" id="email-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="subject" name="subject" class="form-control" placeholder="Subject"
-                            required>
-                        <span class="error-message" id="subject-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" class="form-control" rows="5" placeholder="Your Message"
-                            required></textarea>
-                        <span class="error-message" id="message-error"></span>
-                    </div>
-                    <button type="submit" class="btn btn--primary btn--full-width">Send Message</button>
-                    <div class="form-status" id="form-status"></div>
-                </form>
-            </div>
-        </div>
-    </section>
+            if (!this.isDeleting && this.charIndex === currentRole.length) {
+                nextDelay = delayBetweenRoles;
+                this.isDeleting = true;
+            } else if (this.isDeleting && this.charIndex === 0) {
+                this.isDeleting = false;
+                this.roleIndex = (this.roleIndex + 1) % this.roles.length;
+            }
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2024 Alok Kumar Sahoo. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="#home">Home</a>
-                    <a href="#about">About</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#contact">Contact</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+            setTimeout(type, nextDelay);
+        };
 
-    <script src="script.js"></script>
-</body>
+        type();
+    }
 
-</html>
+    // Navigation Functionality
+    setupNavigation() {
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const targetId = link.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetId === '#projects') {
+                        const allFilterBtn = document.querySelector('.filter-btn[data-filter="all"]');
+                        if (allFilterBtn) allFilterBtn.click();
+                    }
+                    
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - 70;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                    this.closeMobileMenu();
+                }
+            });
+        });
+    }
+
+    updateActiveNavLink() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        let currentSection = '';
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionHeight = section.offsetHeight;
+            if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentSection}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    setupMobileMenu() {
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+    }
+
+    closeMobileMenu() {
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        if (hamburger && navMenu) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    }
+
+    setupScrollAnimations() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        const animateElements = document.querySelectorAll(
+            '.timeline-item, .education-card, .project-card, .service-card, .skill-item'
+        );
+
+        animateElements.forEach(el => {
+            el.classList.add('scroll-animate');
+            observer.observe(el);
+        });
+    }
+
+    handleScroll() {
+        const navbar = document.getElementById('navbar');
+        if (navbar) {
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = 'var(--shadow-sm)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+        }
+    }
+
+    setupProjectFilters() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    if (filterValue === 'all' || category === filterValue) {
+                        card.classList.remove('hidden');
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 100);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.classList.add('hidden');
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+    }
+
+    setupTestimonialsCarousel() {
+        const prevBtn = document.getElementById('prev-testimonial');
+        const nextBtn = document.getElementById('next-testimonial');
+        const dots = document.querySelectorAll('.dot');
+
+        if (prevBtn) prevBtn.addEventListener('click', () => this.showPreviousTestimonial());
+        if (nextBtn) nextBtn.addEventListener('click', () => this.showNextTestimonial());
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => this.showTestimonial(index));
+        });
+
+        this.startCarouselAutoPlay();
+    }
+
+    showTestimonial(index) {
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const dots = document.querySelectorAll('.dot');
+
+        if (slides[this.currentTestimonial]) slides[this.currentTestimonial].classList.remove('active');
+        if (dots[this.currentTestimonial]) dots[this.currentTestimonial].classList.remove('active');
+
+        this.currentTestimonial = index;
+
+        if (slides[this.currentTestimonial]) slides[this.currentTestimonial].classList.add('active');
+        if (dots[this.currentTestimonial]) dots[this.currentTestimonial].classList.add('active');
+    }
+
+    showNextTestimonial() {
+        if (this.testimonials.length === 0) return;
+        const nextIndex = (this.currentTestimonial + 1) % this.testimonials.length;
+        this.showTestimonial(nextIndex);
+    }
+
+    showPreviousTestimonial() {
+        if (this.testimonials.length === 0) return;
+        const prevIndex = (this.currentTestimonial - 1 + this.testimonials.length) % this.testimonials.length;
+        this.showTestimonial(prevIndex);
+    }
+
+    startCarouselAutoPlay() {
+        setInterval(() => this.showNextTestimonial(), 5000);
+    }
+
+    setupContactForm() {
+        const form = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+        if (!form) return;
+
+        const inputs = form.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => this.validateField(input));
+            input.addEventListener('input', () => this.clearFieldError(input));
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.handleFormSubmission(form, formStatus);
+        });
+    }
+
+    validateField(field) {
+        const fieldName = field.name;
+        const fieldValue = field.value.trim();
+        const errorElement = document.getElementById(`${fieldName}-error`);
+        let isValid = true;
+        let errorMessage = '';
+
+        if (fieldName === 'name') {
+            if (!fieldValue) { errorMessage = 'Name is required'; isValid = false; }
+            else if (fieldValue.length < 2) { errorMessage = 'Name must be at least 2 characters'; isValid = false; }
+        } else if (fieldName === 'email') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!fieldValue) { errorMessage = 'Email is required'; isValid = false; }
+            else if (!emailRegex.test(fieldValue)) { errorMessage = 'Please enter a valid email'; isValid = false; }
+        } else if (fieldName === 'subject') {
+            if (!fieldValue) { errorMessage = 'Subject is required'; isValid = false; }
+        } else if (fieldName === 'message') {
+            if (fieldValue.length < 10) { errorMessage = 'Message must be at least 10 characters'; isValid = false; }
+        }
+
+        if (errorElement) {
+            errorElement.textContent = errorMessage;
+            errorMessage ? errorElement.classList.add('show') : errorElement.classList.remove('show');
+        }
+        isValid ? field.classList.remove('error') : field.classList.add('error');
+        return isValid;
+    }
+
+    clearFieldError(field) {
+        const errorElement = document.getElementById(`${field.name}-error`);
+        if (errorElement && field.value.trim()) {
+            errorElement.textContent = '';
+            errorElement.classList.remove('show');
+            field.classList.remove('error');
+        }
+    }
+
+    handleFormSubmission(form, statusElement) {
+        const inputs = form.querySelectorAll('input, textarea');
+        let isFormValid = true;
+        inputs.forEach(input => { if (!this.validateField(input)) isFormValid = false; });
+
+        if (!isFormValid) {
+            this.showFormStatus(statusElement, 'Please fix errors.', 'error');
+            return;
+        }
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        setTimeout(() => {
+            form.reset();
+            this.showFormStatus(statusElement, 'Message sent successfully!', 'success');
+            submitBtn.textContent = 'Send Message';
+            submitBtn.disabled = false;
+        }, 2000);
+    }
+
+    showFormStatus(element, message, type) {
+        if (!element) return;
+        element.textContent = message;
+        element.className = `form-status ${type} show`;
+    }
+}
+
+// Initialize Application
+document.addEventListener('DOMContentLoaded', () => {
+    window.portfolioApp = new PortfolioApp();
+
+    // Hover effects for cards
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-5px)');
+        card.addEventListener('mouseleave', () => card.style.transform = 'translateY(0)');
+    });
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+        const testimonialSection = document.querySelector('#testimonials');
+        if (!testimonialSection) return;
+        const rect = testimonialSection.getBoundingClientRect();
+        if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+            if (e.key === 'ArrowLeft') window.portfolioApp.showPreviousTestimonial();
+            if (e.key === 'ArrowRight') window.portfolioApp.showNextTestimonial();
+        }
+    });
+});
